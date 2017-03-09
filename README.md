@@ -1,7 +1,7 @@
 # Riplay
 Riplay is a python script that downloads a Ripple user's top 50 best replays and saves it to a folder.
 
-[Ripple](https://ripple.moe/) is a custom osu! server with over 25,000 users. 
+[Ripple](https://ripple.moe/) is a custom osu! server with over 25,000 users, so feel free to check it out.
 
 # Setup & Usage
 * Install Dependencies using `python -m pip install -r requirements.txt`
