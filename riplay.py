@@ -28,7 +28,7 @@ def getReplays(username, mode):
             directory = os.path.join(os.getcwd() + "/" + username)
             fullfilename = directory + "/" + username + " - " + songName + '.osr'
 
-            # Download Reokat
+            # Download Replay
             try:
                 urllib.URLopener.version = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36 SE 2.X MetaSr 1.0'
                 downloadUrl = 'https://ripple.moe/web/replays/' + str(scoreId)
@@ -52,7 +52,6 @@ def getReplays(username, mode):
 def getMode():
 
     mode = raw_input("\nSelect the game mode you'd like to download replays for\n1. osu!\n2. Taiko\n3. CTB\n4. Mania\n\nGame Mode: ")
-
 
     mode = int(mode)
     # Check for invalid mode
