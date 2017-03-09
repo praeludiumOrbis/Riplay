@@ -1,5 +1,5 @@
 # Riplay
-Riplay is a collection of python scrips that mass downloads replays from Ripple users.
+Riplay is a collection of python scripts that mass downloads replays from Ripple users.
 
 [Ripple](https://ripple.moe/) is a custom osu! server with over 25,000 users, so feel free to check it out.
 
