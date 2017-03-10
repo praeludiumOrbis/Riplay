@@ -4,7 +4,7 @@ Riplay is a collection of python scripts that mass downloads replays from Ripple
 [Ripple](https://ripple.moe/) is a custom osu! server with over 25,000 users, so feel free to check it out.
 
 # Setup & Usage
-* Install Dependencies using `python -m pip install -r requirements.txt`
+* Install Dependencies using `pip install requests`
 * run `python riplay.py` - This will download the top 50 best replays from one user.
 * run `python beatmap.py` - This will download the top 50 best replays from a given beatmap.
 
