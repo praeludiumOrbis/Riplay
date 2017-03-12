@@ -2,7 +2,7 @@ import requests
 import errno
 import os
 import sys
-import urllib
+import urllib.request
 
 # Gets the Score Ids from Ripple's API then downloads the corresponding replays
 def getReplays(username, mode):
@@ -11,7 +11,7 @@ def getReplays(username, mode):
     data = getJSON(url)
 
     # Check if username directory exists, create if it doesn't.
-    newpath = r'/' + os.getcwd() + "/" + username 
+    newpath = os.getcwd() + "/" + username
     if not os.path.exists(newpath):
         os.makedirs(newpath)
 
@@ -30,28 +30,32 @@ def getReplays(username, mode):
 
             # Download Replay
             try:
-                urllib.URLopener.version = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36 SE 2.X MetaSr 1.0'
-                downloadUrl = 'https://ripple.moe/web/replays/' + str(scoreId)
+                # Create Opener w/ headers
+                opener=urllib.request.build_opener()
+                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                urllib.request.install_opener(opener)
 
-                urllib.urlretrieve(downloadUrl, str(fullfilename))
+                # URL & File path
+                url = 'https://ripple.moe/web/replays/' + str(scoreId)                
+                local = str(fullfilename)
+
+                # Download
+                urllib.request.urlretrieve(url, local)
                 print("Downloading Replay: " + songName + ".osr...")
-
-            except Exception,e:
-                print("ERROR: Could not download file: " + songName + ".osr")
+            except Exception as e:
+                print("ERROR: Could not download file: " + songName + ".osr", e)
                 sys.exit(1)
-
         print("Download Complete.")
-        # Might take a while, but download the beatmap and save the .osu file as well
         return
-    except Exception,e:
-        print("\nCan't download replays because the user doesn't have any scores for this mode.")
+    except Exception as e:
+        print("\nCan't download replays because the user doesn't have any scores for this mode.", e)
         sys.exit(1)
         
 
 # Get Game Mode from the user
 def getMode():
 
-    mode = raw_input("\nSelect the game mode you'd like to download replays for\n1. osu!\n2. Taiko\n3. CTB\n4. Mania\n\nGame Mode: ")
+    mode = input("\nSelect the game mode you'd like to download replays for\n1. osu!\n2. Taiko\n3. CTB\n4. Mania\n\nGame Mode: ")
 
     mode = int(mode)
     # Check for invalid mode
@@ -76,12 +80,12 @@ def getJSON(url):
     except requests.exceptions.TooManyRedirects:
         print("Invalid link given")
     except requests.exceptions.RequestException as e:
-        print e
+        print (e)
         sys.exit(1)
 
 
 # Main Execution
-username = raw_input("Enter a Ripple username to start downloading replays: ")
+username = input("Enter a Ripple username to start downloading replays: ")
 url = 'https://ripple.moe/api/v1/users?name=' + username
 userStats = getJSON(url)
 getMode()

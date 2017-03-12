@@ -2,14 +2,14 @@ import requests
 import errno
 import os
 import sys
-import urllib
+import urllib.request
 
 
 # Downloads top 50 beatmap replays to the beatmap Id's folder
 def getBeatmapReplays(scores, beatmapId):
 
     # Check if beatmapId directory exists, create if it doesn't.
-    newpath = r'/' + os.getcwd() + "/" + beatmapId 
+    newpath = os.getcwd() + "/" + beatmapId 
     if not os.path.exists(newpath):
         os.makedirs(newpath)
 
@@ -25,18 +25,25 @@ def getBeatmapReplays(scores, beatmapId):
 
             # Download
             try:
-                urllib.URLopener.version = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36 SE 2.X MetaSr 1.0'
-                downloadUrl = 'https://ripple.moe/web/replays/' + str(scoreId)
+                # Create Opener w/ headers
+                opener=urllib.request.build_opener()
+                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                urllib.request.install_opener(opener)
 
-                urllib.urlretrieve(downloadUrl, str(fullfilename))
-                print("Downloading Replay: " + scoreSetter + ".osr...")
-            
-            except Exception,e:
-                print("ERROR: Could not download file: " + scoreSetter + ".osr")
-                sys.exit(1)           
+                # URL & File path
+                url = 'https://ripple.moe/web/replays/' + str(scoreId)                
+                local = str(fullfilename)
+
+                # Download
+                urllib.request.urlretrieve(url, local)
+                print("Downloading Replay: " + scoreSetter + ".osr...")        
+            except Exception as e:
+                print("ERROR: Could not download file: " + scoreSetter + ".osr", e)
+                sys.exit(1)     
+                      
         print("Download Complete.")
         return
-    except Exception, e:
+    except Exception as e:
         print(e)
         sys.exit(1)
 
@@ -55,11 +62,11 @@ def getBeatmapScoresJSON(url):
     except requests.exceptions.TooManyRedirects:
         print("Invalid link given")
     except requests.exceptions.RequestException as e:
-        print e
+        print (e)
         sys.exit(1)    
 
 
-beatmapId = raw_input("Enter a beatmapId to start downloading Ripple Replays: ")
+beatmapId = input("Enter a beatmapId to start downloading Ripple Replays: ")
 url = 'https://ripple.moe/api/v1/scores?b=' + beatmapId
 beatmapScores = getBeatmapScoresJSON(url)
 getBeatmapReplays(beatmapScores, beatmapId)
