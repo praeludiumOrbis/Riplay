@@ -21,8 +21,10 @@ def getReplays(username, mode):
             songName = score['beatmap']['song_name']
             scoreId = score['id']
 
-            # Replace any "/" characters in the song name with " " 
-            songName = songName.replace("/", " ")
+            # Replace any nasty characters in the file name
+            nastyCharacters = ["\/", "\\", "<", ">", "?", ":", "*", "|", "\""]
+            for char in nastyCharacters:
+                songName = songName.replace(char, " ")
 
             # Specify file path
             directory = os.path.join(os.getcwd() + "/" + username)
@@ -73,7 +75,7 @@ def getJSON(url):
         data = requests.get(url=url).json()   
         if data['code'] and data['code'] != 200:
             print("Invalid request given, please try again\n")
-            main()
+            sys.exit(1)
         return data
     except requests.exceptions.Timeout:
         data = requests.get(url=url).json()
