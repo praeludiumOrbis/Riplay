@@ -4,12 +4,13 @@ import os
 import sys
 import urllib.request
 
+token = ''
+
 # Gets the Score Ids from Ripple's API then downloads the corresponding replays
-def getReplays(username, mode):
+def getReplays(username, mode, token):
 
-    url = "https://ripple.moe/api/v1/users/scores/best?name=" + username + "&mode=" + str(mode)
+    url = "https://ripple.moe/api/v1/users/scores/best?name=" + username + "&mode=" + str(mode) + "&token=" + token
     data = getJSON(url)
-
     # Check if username directory exists, create if it doesn't.
     newpath = os.getcwd() + "/" + username
     if not os.path.exists(newpath):
@@ -22,7 +23,7 @@ def getReplays(username, mode):
             scoreId = score['id']
 
             # Replace any nasty characters in the file name
-            nastyCharacters = ["\/", "\\", "<", ">", "?", ":", "*", "|", "\""]
+            nastyCharacters = ["\/", "\\", "<", ">", "?", ":", "*", "|", "\"", "/"]
             for char in nastyCharacters:
                 songName = songName.replace(char, " ")
 
@@ -88,11 +89,6 @@ def getJSON(url):
 
 # Main Execution
 username = input("Enter a Ripple username to start downloading replays: ")
-url = 'https://ripple.moe/api/v1/users?name=' + username
+url = 'https://ripple.moe/api/v1/users?name=' + username + "&token=" + token
 userStats = getJSON(url)
 getMode()
-
-
-
-
-
