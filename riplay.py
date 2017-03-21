@@ -4,12 +4,11 @@ import os
 import sys
 import urllib.request
 
-token = ''
 
 # Gets the Score Ids from Ripple's API then downloads the corresponding replays
 def getReplays(username, mode, token):
 
-    url = "https://ripple.moe/api/v1/users/scores/best?name=" + username + "&mode=" + str(mode) + "&token=" + token
+    url = "https://ripple.moe/api/v1/users/scores/best?name=" + username + "&mode=" + str(mode)
     data = getJSON(url)
     # Check if username directory exists, create if it doesn't.
     newpath = os.getcwd() + "/" + username
