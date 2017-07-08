@@ -1,7 +1,7 @@
 # Riplay
 Riplay is a collection of python scripts that mass downloads replays from Ripple users.
 
-[Ripple](https://ripple.moe/) is a custom osu! server with over 25,000 users, so feel free to check it out.
+[Ripple](https://ripple.moe/) is a custom osu! server with over 35,000 users, so feel free to check it out.
 
 Special thanks to [AiAe](https://github.com/AiAe) for contributing.
 
