@@ -178,7 +178,7 @@ elif option == 2:
 
 elif option == 3:
     username = input('Enter a username to begin: ')
-    mode = int(input('Gane Mode: '))
+    mode = int(input('Game Mode: '))
     Thread(target=UserReplays, args=(username, mode-1, )).start()
     Thread(target=UserReplaysWithDifficulty, args=(username, mode-1, )).start()
 
