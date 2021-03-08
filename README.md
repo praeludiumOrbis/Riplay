@@ -8,7 +8,7 @@ Special thanks to [AiAe](https://github.com/AiAe) for contributing.
 # Setup & Usage
 * Install Dependencies using `pip install requests`
 * run `python riplay.py` - All the features of the next two scripts, but written better and you can download .osu files as well.
-* run `python getreplays.py` - This will download the top 50 best replays from one user.
+* run `python user.py` - This will download the top 50 best replays from one user.
 * run `python beatmap.py` - This will download the top 50 best replays from a given beatmap.
 
 # LICENSE
